@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelioNova Solar | Energia inteligente</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='10' y1='10' x2='54' y2='54'%3E%3Cstop stop-color='%23f5b84b'/%3E%3Cstop offset='.55' stop-color='%23ffe199'/%3E%3Cstop offset='1' stop-color='%230f7a5b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='white' stroke-opacity='.58' stroke-width='6'/%3E%3Cpath d='M15 45 45 15' stroke='white' stroke-width='7' stroke-linecap='round' stroke-opacity='.86'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #11201f;
+      --muted: #5c706b;
+      --paper: #f7f5ef;
+      --line: rgba(17, 32, 31, 0.12);
+      --green: #0f7a5b;
+      --green-dark: #074335;
+      --sun: #f5b84b;
+      --coral: #f06f4f;
+      --sky: #cfe7ef;
+      --white: #ffffff;
+      --shadow: 0 24px 80px rgba(7, 67, 53, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-shell {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(245, 184, 75, 0.24), transparent 24rem),
+        radial-gradient(circle at 92% 12%, rgba(15, 122, 91, 0.14), transparent 28rem),
+        linear-gradient(180deg, #f8f4eb 0%, #eef6f3 44%, #f7f5ef 100%);
+    }
+
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      z-index: 20;
+      width: min(1120px, calc(100% - 32px));
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 14px 12px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: 0 18px 60px rgba(7, 67, 53, 0.13);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background:
+        linear-gradient(135deg, transparent 43%, rgba(255, 255, 255, 0.75) 44% 55%, transparent 56%),
+        conic-gradient(from 210deg, var(--sun), #ffe199, var(--green), var(--sun));
+      box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.54), 0 8px 24px rgba(245, 184, 75, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #29443e;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      border-radius: 999px;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(15, 122, 91, 0.1);
+      color: var(--green-dark);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      box-shadow: 0 16px 36px rgba(15, 122, 91, 0.28);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 20px 44px rgba(15, 122, 91, 0.34);
+    }
+
+    .btn-ghost {
+      color: var(--green-dark);
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(7, 67, 53, 0.14);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 96vh;
+      display: grid;
+      align-items: center;
+      padding: 132px 22px 118px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(10, 28, 26, 0.78) 0%, rgba(10, 28, 26, 0.48) 38%, rgba(10, 28, 26, 0.12) 72%),
+        url("https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=2200&q=85") center / cover;
+      transform: scale(1.03);
+      animation: slowZoom 18s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -12% -15% -12%;
+      height: 20vh;
+      background:
+        linear-gradient(180deg, rgba(247, 245, 239, 0) 0%, var(--paper) 36%),
+        var(--paper);
+      transform: rotate(-1.4deg);
+      transform-origin: left top;
+    }
+
+    .solar-orbit {
+      position: absolute;
+      top: 16%;
+      right: 8%;
+      width: 330px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: orbit 18s linear infinite;
+      opacity: 0.82;
+    }
+
+    .solar-orbit::before,
+    .solar-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .solar-orbit::before {
+      inset: 78px;
+      background: radial-gradient(circle, #ffe8a8 0 18%, var(--sun) 19% 60%, rgba(245, 184, 75, 0.15) 61%);
+      box-shadow: 0 0 70px rgba(245, 184, 75, 0.65);
+    }
+
+    .solar-orbit::after {
+      top: 21px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      background: #dff7ee;
+      box-shadow: 0 0 20px rgba(223, 247, 238, 0.9);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.72fr);
+      gap: 42px;
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(12px);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .eyebrow span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #8cf0c5;
+      box-shadow: 0 0 18px rgba(140, 240, 197, 0.9);
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 22px 0 20px;
+      color: white;
+      font-size: clamp(46px, 8vw, 94px);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin: 0 0 30px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .impact-panel {
+      position: relative;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.16);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(22px);
+      color: white;
+      overflow: hidden;
+    }
+
+    .impact-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(245, 184, 75, 0.24), transparent 40%, rgba(140, 240, 197, 0.16));
+      pointer-events: none;
+    }
+
+    .impact-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      min-height: 122px;
+      padding: 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1;
+    }
+
+    .metric span {
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    main {
+      position: relative;
+      z-index: 4;
+      margin-top: -34px;
+    }
+
+    section {
+      padding: 86px 22px;
+    }
+
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 720px;
+      margin: 10px 0 0;
+      color: var(--ink);
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .section-note {
+      max-width: 360px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .solutions {
+      background: var(--paper);
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .solution-card {
+      position: relative;
+      min-height: 330px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 14px 50px rgba(7, 67, 53, 0.08);
+      overflow: hidden;
+      transform: translateY(28px);
+      opacity: 0;
+      transition: transform 0.7s ease, opacity 0.7s ease, box-shadow 0.3s ease;
+    }
+
+    .solution-card.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .solution-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-6px);
+    }
+
+    .solution-card::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      bottom: -50px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(245, 184, 75, 0.2);
+      transition: transform 0.35s ease;
+    }
+
+    .solution-card:hover::after {
+      transform: scale(1.55);
+    }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 26px;
+      border-radius: 8px;
+      background: #e4f5ef;
+      color: var(--green-dark);
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .solution-card h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .solution-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    .experience {
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(7, 67, 53, 0.92), rgba(17, 32, 31, 0.94)),
+        url("https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=1800&q=85") center / cover;
+    }
+
+    .experience h2,
+    .experience .kicker {
+      color: white;
+    }
+
+    .experience .section-note {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 42px;
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+      min-height: 220px;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: "0" counter(step);
+      display: block;
+      margin-bottom: 34px;
+      color: var(--sun);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .step p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .showcase {
+      background: #edf5f1;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .photo-card {
+      min-height: 520px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(180deg, transparent 42%, rgba(7, 67, 53, 0.78)),
+        url("https://images.unsplash.com/photo-1558449028-b53a39d100fc?auto=format&fit=crop&w=1600&q=85") center / cover;
+      display: flex;
+      align-items: end;
+      padding: 28px;
+      color: white;
+    }
+
+    .photo-card h2 {
+      max-width: 560px;
+      margin: 0;
+      color: white;
+      font-size: clamp(32px, 5vw, 54px);
+    }
+
+    .calculator {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 26px;
+      border: 1px solid rgba(17, 32, 31, 0.1);
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 14px 50px rgba(7, 67, 53, 0.08);
+    }
+
+    .calculator h3 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.15;
+    }
+
+    .range-wrap {
+      display: grid;
+      gap: 16px;
+    }
+
+    .range-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--green);
+    }
+
+    .result {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .result-box {
+      padding: 16px;
+      border-radius: 8px;
+      background: #f2f7f4;
+      border: 1px solid var(--line);
+    }
+
+    .result-box strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--green-dark);
+      font-size: 25px;
+    }
+
+    .result-box span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .testimonials {
+      background: var(--paper);
+    }
+
+    .marquee {
+      display: flex;
+      gap: 16px;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 16px;
+      min-width: max-content;
+      animation: marquee 26s linear infinite;
+    }
+
+    .quote {
+      width: min(390px, 82vw);
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 14px 40px rgba(7, 67, 53, 0.07);
+    }
+
+    .quote p {
+      margin: 0 0 24px;
+      color: #344a45;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .quote strong {
+      display: block;
+      color: var(--green-dark);
+    }
+
+    .quote span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta {
+      padding: 34px 22px 82px;
+      background: var(--paper);
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      padding: clamp(34px, 7vw, 72px);
+      color: white;
+      background:
+        linear-gradient(120deg, rgba(7, 67, 53, 0.96), rgba(15, 122, 91, 0.82)),
+        url("https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1800&q=85") center / cover;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -120px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: rgba(245, 184, 75, 0.24);
+      animation: pulse 4.5s ease-in-out infinite;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+
+    .cta h2 {
+      margin: 10px 0 18px;
+      color: white;
+    }
+
+    .cta p {
+      max-width: 640px;
+      margin: 0 0 28px;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    footer {
+      padding: 28px 22px 38px;
+      color: var(--muted);
+      background: var(--paper);
+    }
+
+    .footer-inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+      font-size: 14px;
+    }
+
+    @keyframes slowZoom {
+      from {
+        transform: scale(1.03);
+      }
+      to {
+        transform: scale(1.1);
+      }
+    }
+
+    @keyframes orbit {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(calc(-50% - 8px));
+      }
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.14);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        border-radius: 8px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-inner,
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-panel {
+        max-width: 560px;
+      }
+
+      .solution-grid,
+      .timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav {
+        top: 10px;
+        width: calc(100% - 20px);
+      }
+
+      .brand {
+        font-size: 14px;
+      }
+
+      .nav .btn {
+        min-height: 40px;
+        padding: 0 13px;
+        font-size: 13px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 112px 16px 96px;
+      }
+
+      .hero::after {
+        inset: auto -16% -12% -16%;
+        height: 15vh;
+      }
+
+      h1 {
+        font-size: clamp(42px, 15vw, 64px);
+      }
+
+      .solar-orbit {
+        top: 14%;
+        right: -112px;
+        width: 250px;
+      }
+
+      .impact-grid,
+      .solution-grid,
+      .timeline,
+      .result {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        margin-top: -18px;
+      }
+
+      section {
+        padding: 64px 16px;
+      }
+
+      .photo-card {
+        min-height: 420px;
+        padding: 22px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <nav class="nav" aria-label="Navegacao principal">
+      <a class="brand" href="#top" aria-label="HelioNova Solar">
+        <span class="brand-mark" aria-hidden="true"></span>
+        HelioNova Solar
+      </a>
+      <div class="nav-links">
+        <a href="#solucoes">Solucoes</a>
+        <a href="#processo">Processo</a>
+        <a href="#simulador">Simulador</a>
+        <a href="#clientes">Clientes</a>
+      </div>
+      <a class="btn btn-primary" href="#contato">Orcamento</a>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="solar-orbit" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow"><span aria-hidden="true"></span> Energia solar de alta performance</div>
+          <h1>O sol trabalhando para sua casa e sua empresa.</h1>
+          <p class="hero-copy">
+            Projetamos, instalamos e monitoramos sistemas fotovoltaicos com engenharia precisa,
+            acabamento premium e economia mensuravel desde o primeiro mes.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#simulador">Simular economia</a>
+            <a class="btn btn-ghost" href="#solucoes">Ver solucoes</a>
+          </div>
+        </div>
+
+        <aside class="impact-panel" aria-label="Indicadores de impacto">
+          <div class="impact-grid">
+            <div class="metric">
+              <strong data-count="92">0</strong>
+              <span>por cento de reducao media na conta de energia</span>
+            </div>
+            <div class="metric">
+              <strong data-count="18">0</strong>
+              <span>anos de garantia de performance e suporte tecnico</span>
+            </div>
+            <div class="metric">
+              <strong data-count="740">0</strong>
+              <span>projetos residenciais, comerciais e rurais entregues</span>
+            </div>
+            <div class="metric">
+              <strong data-count="24">0</strong>
+              <span>horas de monitoramento inteligente por dia</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section class="solutions" id="solucoes">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Solucoes sob medida</div>
+              <h2>Arquitetura solar para consumir menos e produzir mais.</h2>
+            </div>
+            <p class="section-note">
+              Cada projeto nasce de uma leitura tecnica do seu consumo, telhado, fluxo financeiro e plano de crescimento.
+            </p>
+          </div>
+
+          <div class="solution-grid">
+            <article class="solution-card">
+              <div class="icon">H</div>
+              <h3>Residencial inteligente</h3>
+              <p>Sistemas discretos, eficientes e preparados para bateria, carro eletrico e automacao da casa.</p>
+            </article>
+            <article class="solution-card">
+              <div class="icon">B</div>
+              <h3>Empresas e industrias</h3>
+              <p>Projetos para reduzir custo operacional, aumentar previsibilidade e proteger margem.</p>
+            </article>
+            <article class="solution-card">
+              <div class="icon">24</div>
+              <h3>Monitoramento ativo</h3>
+              <p>Dashboards, alertas e manutencao preventiva para manter a geracao no ponto ideal.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="experience" id="processo">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Do estudo a geracao</div>
+              <h2>Um processo elegante para uma decisao importante.</h2>
+            </div>
+            <p class="section-note">
+              Cuidamos da engenharia, homologacao, instalacao e ativacao com acompanhamento claro em cada etapa.
+            </p>
+          </div>
+
+          <div class="timeline">
+            <article class="step">
+              <h3>Diagnostico</h3>
+              <p>Analisamos consumo, orientacao solar, area util e metas de economia.</p>
+            </article>
+            <article class="step">
+              <h3>Projeto 3D</h3>
+              <p>Modelamos o sistema, estimamos geracao e dimensionamos os equipamentos.</p>
+            </article>
+            <article class="step">
+              <h3>Instalacao</h3>
+              <p>Equipe certificada executa a obra com acabamento limpo e seguro.</p>
+            </article>
+            <article class="step">
+              <h3>Performance</h3>
+              <p>Voce acompanha a geracao em tempo real e recebe suporte continuo.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="showcase" id="simulador">
+        <div class="wrap showcase-grid">
+          <div class="photo-card">
+            <h2>Energia limpa com retorno financeiro visivel.</h2>
+          </div>
+
+          <aside class="calculator" aria-label="Simulador de economia">
+            <div>
+              <div class="kicker">Simulador rapido</div>
+              <h3>Quanto voce pode economizar?</h3>
+            </div>
+
+            <div class="range-wrap">
+              <label class="range-label" for="bill">
+                <span>Conta mensal</span>
+                <strong id="billValue">R$ 850</strong>
+              </label>
+              <input id="bill" type="range" min="250" max="6000" step="50" value="850" />
+            </div>
+
+            <div class="result">
+              <div class="result-box">
+                <strong id="monthlySaving">R$ 731</strong>
+                <span>economia estimada por mes</span>
+              </div>
+              <div class="result-box">
+                <strong id="yearSaving">R$ 8.772</strong>
+                <span>economia estimada por ano</span>
+              </div>
+            </div>
+
+            <a class="btn btn-primary" href="#contato">Receber estudo tecnico</a>
+          </aside>
+        </div>
+      </section>
+
+      <section class="testimonials" id="clientes">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Clientes HelioNova</div>
+              <h2>Projetos que mudaram a relacao com energia.</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="marquee" aria-label="Depoimentos">
+          <div class="marquee-track">
+            <article class="quote">
+              <p>"A instalacao foi impecavel. Em tres meses ja tinhamos clareza total da economia e da geracao diaria."</p>
+              <strong>Marina Costa</strong>
+              <span>Casa Alto Padrao</span>
+            </article>
+            <article class="quote">
+              <p>"A HelioNova traduziu dados tecnicos em decisao simples. O retorno entrou no nosso planejamento financeiro."</p>
+              <strong>Rafael Nunes</strong>
+              <span>Rede de Mercados</span>
+            </article>
+            <article class="quote">
+              <p>"O monitoramento faz diferenca. A equipe identifica queda de performance antes de virar problema."</p>
+              <strong>Claudia Torres</strong>
+              <span>Industria Alimenticia</span>
+            </article>
+            <article class="quote">
+              <p>"O projeto ficou bonito no telhado e forte na conta. Era exatamente o equilibrio que buscavamos."</p>
+              <strong>Bruno Matos</strong>
+              <span>Condominio Horizontal</span>
+            </article>
+            <article class="quote">
+              <p>"A instalacao foi impecavel. Em tres meses ja tinhamos clareza total da economia e da geracao diaria."</p>
+              <strong>Marina Costa</strong>
+              <span>Casa Alto Padrao</span>
+            </article>
+            <article class="quote">
+              <p>"A HelioNova traduziu dados tecnicos em decisao simples. O retorno entrou no nosso planejamento financeiro."</p>
+              <strong>Rafael Nunes</strong>
+              <span>Rede de Mercados</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contato">
+        <div class="wrap">
+          <div class="cta-box">
+            <div class="cta-content">
+              <div class="kicker">Comece pelo estudo solar</div>
+              <h2>Receba uma proposta precisa para o seu telhado.</h2>
+              <p>
+                Em ate 24 horas, nossa equipe prepara uma leitura inicial de consumo, potencial de geracao
+                e estimativa de payback para o seu imovel.
+              </p>
+              <a class="btn btn-ghost" href="mailto:contato@helionova.com.br">contato@helionova.com.br</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>HelioNova Solar &copy; 2026</span>
+        <span>Energia fotovoltaica, engenharia e monitoramento.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll(".solution-card");
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cards.forEach((card, index) => {
+      card.style.transitionDelay = `${index * 120}ms`;
+      cardObserver.observe(card);
+    });
+
+    const counters = document.querySelectorAll("[data-count]");
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const element = entry.target;
+        const target = Number(element.dataset.count);
+        const duration = 1200;
+        const start = performance.now();
+
+        function update(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          element.textContent = Math.round(target * eased).toLocaleString("pt-BR");
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          }
+        }
+
+        requestAnimationFrame(update);
+        counterObserver.unobserve(element);
+      });
+    }, { threshold: 0.55 });
+
+    counters.forEach((counter) => counterObserver.observe(counter));
+
+    const bill = document.querySelector("#bill");
+    const billValue = document.querySelector("#billValue");
+    const monthlySaving = document.querySelector("#monthlySaving");
+    const yearSaving = document.querySelector("#yearSaving");
+    const money = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      maximumFractionDigits: 0
+    });
+
+    function updateSavings() {
+      const value = Number(bill.value);
+      const monthly = Math.round(value * 0.86);
+      billValue.textContent = money.format(value);
+      monthlySaving.textContent = money.format(monthly);
+      yearSaving.textContent = money.format(monthly * 12);
+    }
+
+    bill.addEventListener("input", updateSavings);
+    updateSavings();
+  </script>
+</body>
+</html>
